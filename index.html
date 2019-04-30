@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>MQTT JavaScript Button</title>
+	</head>
+
+	<body>
+
+		<h2 align=center>On demand Device</h2>
+
+		<h3 id="json_display">Waiting for JSON Data from Device...</h3>
+		
+		<button id="status_button2" type="button" onclick="data();">Click Me to get msg from device!</button>
+			
+
+		<!-- Source Paho MQTT Client-->
+		<script src="lib/mqttws31.js"></script>
+		<!-- Our Code Goes Here -->
+		<script src="button_test.js"></script>
+		<!-- Start it up! -->
+		<script>connect();</script>
+		
+
+	</body>
+</html>
