@@ -8,14 +8,27 @@
 
 	<body>
 
+		
+
+
+
 		<h2 align=center>On demand device data</h2>
+
+		
+				<select name="location_filter" onchange="report(this.value)"> 
+  				<option value="">Please select</option>
+  				<option value="all">All</option>
+  				</select>
+
 
 		<h3 id="Online">Online</h3>
 		<h3 id="Online_idle">Online Idle</h3>
 		<h3 id="Offline">Offline</h3>
 		<h3 id="Total">Total</h3>
+
+
 		
-		<button id="status_button" type="button" onclick="data();">Click Me to get msg from device!</button>
+	
 			
 
 		<!-- Source Paho MQTT Client-->
@@ -24,6 +37,28 @@
 		<script src="button_test.js"></script>
 		<!-- Start it up! -->
 		<script>connect();</script>
+
+		<script>
+
+  function report(location) {
+  if (location=="") return; 
+  {
+
+  	console.log("please select - possibly you want something else here");
+  }
+
+  if (location=="all")  
+  {
+
+  	console.log("Requesting heartbit from all devices");
+  	data();
+
+
+}
+  
+   
+} 
+		</script>
 		
 
 	</body>
