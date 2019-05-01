@@ -6,6 +6,12 @@ var online_idle_device_counter=0;
 var offline_device_counter=0;
 var total_device_counter = 0;
 
+var online_device = null;
+var online_idle_device = null;
+var offline_device = null;
+var total_device = null;
+
+
 var message_received_flag = false; 
 
 // var last_online_device_counter=0;
@@ -105,12 +111,6 @@ function onMessageArrived(message) {
   		});}
 	
 
-var online_device = document.getElementById("Online");
-online_device.innerHTML = "Online: " + online_device_counter;
-
-var online_idle_device = document.getElementById("Online_idle");
-online_idle_device.innerHTML = "Online Idle: " + online_idle_device_counter;
-
 
 
 if ((online_device_counter+online_idle_device_counter)>total_device_counter){
@@ -129,22 +129,7 @@ total_device_counter = online_device_counter + online_idle_device_counter;
 
 offline_device_counter = total_device_counter - (online_device_counter + online_idle_device_counter );
 
-var offline_device = document.getElementById("Offline");
-offline_device.innerHTML = "Offline: " + offline_device_counter;
-
-
-
-var total_device = document.getElementById("Total");
-total_device.innerHTML = "Total: " + total_device_counter;
-
-
 } 
-
-
-
-
-
-
 
 // Provides the button logic that toggles our display LED on and off
 // Triggered by pressing the HTML button "status_button"
@@ -167,12 +152,12 @@ client.send(message);
 console.info('sending: ', message);
 
 
-setTimeout(check_if_all_offline, 5000);
+setTimeout(update_device_count, 5000);
 
 }
 
 
-function check_if_all_offline(){
+function update_device_count(){
 
 	if(message_received_flag == false){
 	console.log("All devices are offline");
@@ -180,22 +165,37 @@ function check_if_all_offline(){
 	// Updating info
 
 
-var online_device = document.getElementById("Online");
+online_device = document.getElementById("Online");
 online_device.innerHTML = "Online: " + "0";
 
-var online_idle_device = document.getElementById("Online_idle");
+online_idle_device = document.getElementById("Online_idle");
 online_idle_device.innerHTML = "Online Idle: " + "0";
 
 
-var offline_device = document.getElementById("Offline");
+offline_device = document.getElementById("Offline");
 offline_device.innerHTML = "Offline: " + total_device_counter;
 
 
 
-var total_device = document.getElementById("Total");
+total_device = document.getElementById("Total");
 total_device.innerHTML = "Total: " + total_device_counter;
 
+}
 
+
+else{
+
+online_device = document.getElementById("Online");
+online_device.innerHTML = "Online: " + online_device_counter;
+
+online_idle_device = document.getElementById("Online_idle");
+online_idle_device.innerHTML = "Online Idle: " + online_idle_device_counter;
+
+offline_device = document.getElementById("Offline");
+offline_device.innerHTML = "Offline: " + offline_device_counter;
+
+total_device = document.getElementById("Total");
+total_device.innerHTML = "Total: " + total_device_counter;
 
 }
 
