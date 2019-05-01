@@ -121,7 +121,7 @@ total_device_counter = online_device_counter + online_idle_device_counter;
 
 //Counting total devices and offline devices
 
-total_device_counter = online_device_counter + online_idle_device_counter + offline_device_counter;
+// total_device_counter = online_device_counter + online_idle_device_counter + offline_device_counter;
 
 
 
