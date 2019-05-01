@@ -6,6 +6,7 @@ var online_idle_device_counter=0;
 var offline_device_counter=0;
 var total_device_counter = 0;
 
+var message_received_flag = false; 
 
 // var last_online_device_counter=0;
 // var last_online_idle_device_counter=0;
@@ -76,6 +77,7 @@ function onConnectionLost(responseObject) {
 //  in case multiple clients are toggling it.
 function onMessageArrived(message) {
 	console.log(message.destinationName, message.payloadString);
+	message_received_flag = true;
 
 	// Update element depending on which topic's data came in
 	
@@ -148,10 +150,13 @@ total_device.innerHTML = "Total: " + total_device_counter;
 // Triggered by pressing the HTML button "status_button"
 
 function data(){
+
+
 	
 online_device_counter=0;
 online_idle_device_counter=0;
 offline_device_counter=0;
+message_received_flag = false;
 	
 var message = new Paho.MQTT.Message("1");
 message.destinationName = req_data;
@@ -162,10 +167,37 @@ client.send(message);
 console.info('sending: ', message);
 
 
+setTimeout(check_if_all_offline, 5000);
+
+}
+
+
+function check_if_all_offline(){
+
+	if(message_received_flag == false){
+	console.log("All devices are offline");
+
+	// Updating info
+
+
+var online_device = document.getElementById("Online");
+online_device.innerHTML = "Online: " + "0";
+
+var online_idle_device = document.getElementById("Online_idle");
+online_idle_device.innerHTML = "Online Idle: " + "0";
+
+
+var offline_device = document.getElementById("Offline");
+offline_device.innerHTML = "Offline: " + total_device_counter;
+
+
+
+var total_device = document.getElementById("Total");
+total_device.innerHTML = "Total: " + total_device_counter;
 
 
 
 }
 
-
+}
 
