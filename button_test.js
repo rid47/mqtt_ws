@@ -1,8 +1,18 @@
 // Global variables
 var client       = null;
+
 var online_device_counter=0;
 var online_idle_device_counter=0;
-var offline_device_counter=0;	
+var offline_device_counter=0;
+var total_device_counter = 0;
+
+
+// var last_online_device_counter=0;
+// var last_online_idle_device_counter=0;
+// var last_offline_device_counter=0;
+
+
+
 // These are configs	
 var hostname       = "broker.hivemq.com";
 var port           = "8000";
@@ -73,38 +83,25 @@ function onMessageArrived(message) {
 	if (message.destinationName == get_data){ 
 		
 		var text = message.payloadString;
-
-		if(text=="Offline"){
-
-		console.log("I'm in offline loop");
-		offline_device_counter++;
-		online_device_counter--;
-		console.log(offline_device_counter);
-		
-		// var online_device = document.getElementById("Online");
-		// online_device.innerHTML = "Online: " + online_device_counter;
-		
-	}else{
-		
 		var obj = JSON.parse(text, function (key, value) {
   		if (key == "status" && value =="online") {
   		console.log(online_device_counter);
   		online_device_counter++;
   		console.log(online_device_counter);
-  		
+  		}
 
   		//console.log("I've received online message");
-  		}
+  		
 
   		else if (key == "status" && value =="online_idle") {
   		console.log(online_idle_device_counter);
   		online_idle_device_counter++;
   		console.log(online_idle_device_counter);
   		
-		
+		}
 
-  		}});}
-	}
+  		});}
+	
 
 var online_device = document.getElementById("Online");
 online_device.innerHTML = "Online: " + online_device_counter;
@@ -112,8 +109,33 @@ online_device.innerHTML = "Online: " + online_device_counter;
 var online_idle_device = document.getElementById("Online_idle");
 online_idle_device.innerHTML = "Online Idle: " + online_idle_device_counter;
 
+
+
+if ((online_device_counter+online_idle_device_counter)>total_device_counter){
+
+total_device_counter = online_device_counter + online_idle_device_counter;
+
+}
+
+
+
+//Counting total devices and offline devices
+
+total_device_counter = online_device_counter + online_idle_device_counter + offline_device_counter;
+
+
+
+offline_device_counter = total_device_counter - (online_device_counter + online_idle_device_counter );
+
 var offline_device = document.getElementById("Offline");
 offline_device.innerHTML = "Offline: " + offline_device_counter;
+
+
+
+var total_device = document.getElementById("Total");
+total_device.innerHTML = "Total: " + total_device_counter;
+
+
 } 
 
 

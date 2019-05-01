@@ -2,5 +2,5 @@ echo "# srdl_mqtt" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
-git remote add origin https://github.com/rid47/srdl_mqtt.git
+git remote add origin https://github.com/rid47/mqtt_ws.git
 git push -u origin master
