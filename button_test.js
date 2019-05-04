@@ -142,8 +142,13 @@ online_device_counter=0;
 online_idle_device_counter=0;
 offline_device_counter=0;
 message_received_flag = false;
-	
-var message = new Paho.MQTT.Message("1");
+
+
+// var request_array=["1","heart_beat"];
+// console.log(request_array);
+//request_array.toString();	
+//console.log(request_array);
+var message = new Paho.MQTT.Message("[1,heart_beat]");
 message.destinationName = req_data;
 message.qos = 2;
 message.retained = false;
